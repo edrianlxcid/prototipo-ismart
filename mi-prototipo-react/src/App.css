@@ -1,0 +1,15 @@
+.App {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+/* Estilos para el mensaje de bienvenida cuando se loguea */
+.App > div:not(.login-wrapper) {
+  margin: auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+}

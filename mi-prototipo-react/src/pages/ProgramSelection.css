@@ -1,0 +1,110 @@
+.programs-container {
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.programs-container h1 {
+  color: #0b2e59;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.programs-container .subtitle {
+  color: #666;
+  font-size: 1.2rem;
+  margin-bottom: 50px;
+}
+
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  justify-items: center;
+}
+
+.program-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 320px;
+  border: 1px solid #eaeaea;
+}
+
+.program-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 173, 239, 0.2);
+  border-color: #00adef;
+}
+
+.program-header {
+  background: linear-gradient(135deg, #0b2e59 0%, #00adef 100%);
+  color: white;
+  padding: 30px 20px;
+}
+
+.program-header h2 {
+  font-size: 4rem;
+  margin: 0;
+  line-height: 1;
+}
+
+.program-header span {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.9;
+}
+
+.program-body {
+  padding: 30px 20px;
+}
+
+.program-body h3 {
+  color: #333;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+}
+
+.program-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px 0;
+  text-align: left;
+}
+
+.program-features li {
+  margin-bottom: 12px;
+  color: #555;
+  position: relative;
+  padding-left: 25px;
+}
+
+.program-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #00adef;
+  font-weight: bold;
+}
+
+.buy-btn {
+  background-color: #00adef;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.buy-btn:hover {
+  background-color: #008fcc;
+}
