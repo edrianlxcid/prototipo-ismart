@@ -1,35 +1,53 @@
 const db = require('../config/db');
 
 exports.comprarPaquete = async (req, res) => {
+    const client = await db.connect();
     try {
-        let { id_programa, id_paciente, total_sesiones_compradas } = req.body;
+        await client.query('BEGIN');
         
-        // Mock origen for the prototype
-        const origen = 'Centro'; 
+        const { 
+            id_programa, 
+            total_sesiones_compradas,
+            email_tutor, // From user context
+            nombre_tutor,
+            telefono_tutor,
+            nombres_nino,
+            apellidos_nino,
+            fecha_nacimiento
+        } = req.body;
+        
+        
+        const origen = 'ECOMMERCE'; 
 
-        // Si id_paciente es nulo (prototipo), buscar el primer paciente de la DB
-        if (!id_paciente) {
-            const pacienteResult = await db.query('SELECT id FROM pacientes LIMIT 1');
-            if (pacienteResult.rows.length > 0) {
-                id_paciente = pacienteResult.rows[0].id;
-            } else {
-                return res.status(400).json({ error: 'No hay pacientes de prueba en la base de datos' });
-            }
-        }
+        // 1. Crear el paciente
+        const pacienteResult = await client.query(
+            `INSERT INTO pacientes (email_tutor, nombre_tutor, telefono_tutor, nombres, apellidos, fecha_nacimiento, fecha_creacion) 
+             VALUES ($1, $2, $3, $4, $5, $6, NOW()) RETURNING id`,
+            [email_tutor, nombre_tutor, telefono_tutor, nombres_nino, apellidos_nino, fecha_nacimiento]
+        );
+        
+        const id_paciente = pacienteResult.rows[0].id;
 
-        const result = await db.query(
+        // 2. Comprar el paquete
+        const result = await client.query(
             `INSERT INTO paquetes_adquiridos 
             (id_paciente, id_programa, total_sesiones_compradas, origen, fecha_compra) 
             VALUES ($1, $2, $3, $4, NOW()) RETURNING id, total_sesiones_compradas`,
             [id_paciente, id_programa, total_sesiones_compradas, origen]
         );
 
+        await client.query('COMMIT');
+
         res.status(201).json({ 
             mensaje: 'Paquete adquirido exitosamente',
-            paquete: result.rows[0]
+            paquete: result.rows[0],
+            paciente: { nombres: nombres_nino, apellidos: apellidos_nino }
         });
     } catch (error) {
+        await client.query('ROLLBACK');
         console.error('Error al comprar paquete:', error);
         res.status(500).json({ error: 'Error del servidor' });
+    } finally {
+        client.release();
     }
 };

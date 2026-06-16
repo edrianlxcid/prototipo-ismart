@@ -1,4 +1,6 @@
+import { API_URL } from '../config/api';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Login.css';
 import chikyHappy from '../assets/CHIKY-HAPPY.png';
 import chikyAgua from '../assets/CHIKY-AGUA.png';
@@ -23,11 +25,32 @@ function Login({ onLogin }) {
     return () => clearInterval(interval);
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (email && password) {
-      onLogin(email);
-      setError('');
+      try {
+        const response = await fetch(`${API_URL}/api/usuarios/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email_tutor: email, password })
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(data.error || 'Error al iniciar sesión');
+        }
+        
+        onLogin({
+          id: data.usuario.id,
+          email: data.usuario.email,
+          nombres: data.usuario.nombres || '',
+          apellidos: data.usuario.apellidos || ''
+        });
+        setError('');
+      } catch (err) {
+        setError(err.message);
+      }
     } else {
       setError('Por favor, ingresa tus datos.');
     }
@@ -135,7 +158,7 @@ function Login({ onLogin }) {
 
             <div className="register-link">
               <span>¿Aún no tienes cuenta? </span>
-              <a href="#">REGÍSTRATE</a>
+              <Link to="/register">REGÍSTRATE</Link>
             </div>
           </form>
           {error && <p className="error-msg">{error}</p>}

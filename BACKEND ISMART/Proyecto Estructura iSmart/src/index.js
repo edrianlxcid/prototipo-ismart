@@ -22,6 +22,7 @@ const usuariosRoutes = require('./routes/usuarios.routes');
 const programasRoutes = require('./routes/programas.routes');
 const paquetesRoutes = require('./routes/paquetes.routes');
 const citasRoutes = require('./routes/citas.routes');
+const pagosRoutes = require('./routes/pagos.routes');
 
 // --- USO DE RUTAS ---
 app.use('/api/departamentos', departamentosRoutes);
@@ -29,6 +30,7 @@ app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/programas', programasRoutes);
 app.use('/api/paquetes', paquetesRoutes);
 app.use('/api/citas', citasRoutes);
+app.use('/api/pagos', pagosRoutes);
 
 // Ruta de prueba
 app.get('/api/test-db', async (req, res) => {

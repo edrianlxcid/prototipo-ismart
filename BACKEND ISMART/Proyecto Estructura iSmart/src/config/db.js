@@ -2,13 +2,21 @@ const { Pool } = require('pg');
 require('dotenv').config(); // Carga las variables del archivo .env
 
 // Creamos la instancia de conexión usando las variables de entorno
-const pool = new Pool({
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    database: process.env.DB_NAME,
-});
+// Si existe DATABASE_URL, usamos esa (para producción/Neon), de lo contrario usamos las variables locales
+const poolConfig = process.env.DATABASE_URL 
+    ? {
+        connectionString: process.env.DATABASE_URL,
+        ssl: { rejectUnauthorized: false } // Requerido por servicios Cloud como Neon/Supabase
+      }
+    : {
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        host: process.env.DB_HOST,
+        port: process.env.DB_PORT,
+        database: process.env.DB_NAME,
+      };
+
+const pool = new Pool(poolConfig);
 
 // Función para probar la conexión al iniciar el servidor
 const testConnection = async () => {

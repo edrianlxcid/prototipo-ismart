@@ -1,110 +1,304 @@
 .programs-container {
-  padding: 40px;
+  padding: 60px 20px;
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
 }
 
 .programs-container h1 {
-  color: #0b2e59;
-  font-size: 2.5rem;
-  margin-bottom: 10px;
+  color: var(--teal-dark);
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+  letter-spacing: -0.5px;
 }
 
 .programs-container .subtitle {
-  color: #666;
-  font-size: 1.2rem;
-  margin-bottom: 50px;
+  color: var(--text-muted);
+  font-size: 1.25rem;
+  margin-bottom: 60px;
 }
 
 .programs-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
   justify-items: center;
 }
 
 .program-card {
-  background: white;
-  border-radius: 16px;
+  background: var(--bg-white);
+  border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: var(--shadow-md);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   width: 100%;
-  max-width: 320px;
-  border: 1px solid #eaeaea;
+  max-width: 340px;
+  border: 1px solid rgba(26, 116, 116, 0.08);
+  position: relative;
 }
 
 .program-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 173, 239, 0.2);
-  border-color: #00adef;
+  transform: translateY(-12px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(26, 116, 116, 0.2);
 }
 
 .program-header {
-  background: linear-gradient(135deg, #0b2e59 0%, #00adef 100%);
+  background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal-light) 100%);
   color: white;
-  padding: 30px 20px;
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.program-header::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: -10%;
+  width: 120%;
+  height: 40px;
+  background: white;
+  transform: rotate(-3deg);
 }
 
 .program-header h2 {
-  font-size: 4rem;
+  font-size: 4.5rem;
+  font-weight: 800;
   margin: 0;
   line-height: 1;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
 .program-header span {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  font-weight: 700;
+  letter-spacing: 3px;
   opacity: 0.9;
+  display: block;
+  margin-top: 5px;
 }
 
 .program-body {
-  padding: 30px 20px;
+  padding: 30px 30px 40px 30px;
 }
 
 .program-body h3 {
-  color: #333;
-  font-size: 1.3rem;
-  margin-bottom: 20px;
+  color: var(--teal-dark);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 25px;
 }
 
 .program-features {
   list-style: none;
   padding: 0;
-  margin: 0 0 30px 0;
+  margin: 0 0 35px 0;
   text-align: left;
 }
 
 .program-features li {
-  margin-bottom: 12px;
-  color: #555;
+  margin-bottom: 15px;
+  color: var(--text-muted);
   position: relative;
-  padding-left: 25px;
+  padding-left: 30px;
+  font-size: 0.95rem;
+  line-height: 1.4;
 }
 
 .program-features li::before {
   content: '✓';
   position: absolute;
   left: 0;
-  color: #00adef;
-  font-weight: bold;
+  color: var(--orange-brand);
+  font-weight: 900;
+  font-size: 1.1rem;
+  background: rgba(234, 120, 24, 0.1);
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 }
 
 .buy-btn {
-  background-color: #00adef;
+  background: linear-gradient(135deg, var(--orange-brand) 0%, var(--orange-light) 100%);
   color: white;
   border: none;
-  border-radius: 30px;
-  padding: 12px 30px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  border-radius: 50px;
+  padding: 15px 30px;
+  font-size: 1.15rem;
+  font-weight: 700;
   cursor: pointer;
   width: 100%;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(234, 120, 24, 0.3);
 }
 
 .buy-btn:hover {
-  background-color: #008fcc;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(234, 120, 24, 0.4);
+}
+
+.buy-btn:active {
+  transform: translateY(1px);
+}
+
+/* MODAL STYLES */
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 550px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  text-align: left;
+}
+
+.animation-slide-in {
+  animation: modalSlideUp 0.3s ease-out;
+}
+
+@keyframes modalSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-content h2 {
+  color: var(--teal-dark);
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+}
+
+.modal-subtitle {
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.section-title {
+  font-size: 1.1rem;
+  color: var(--orange-brand);
+  margin: 20px 0 10px 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+}
+
+.modal-form .form-group {
+  margin-bottom: 15px;
+}
+
+.modal-form input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.3s;
+}
+
+.modal-form input:focus {
+  outline: none;
+  border-color: var(--teal-light);
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.cancel-btn, .confirm-btn {
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+  border: none;
+}
+
+.cancel-btn {
+  background: #f0f0f0;
+  color: #555;
+}
+
+.cancel-btn:hover {
+  background: #e4e4e4;
+}
+
+.confirm-btn {
+  background: var(--teal-dark);
+  color: white;
+}
+
+.confirm-btn:hover {
+  background: var(--teal-light);
+}
+
+/* RESPONSIVE PROGRAM SELECTION */
+@media (max-width: 768px) {
+  .programs-container {
+    padding: 20px 15px;
+  }
+
+  .programs-container h1 {
+    font-size: 2rem;
+  }
+
+  .programs-container .subtitle {
+    font-size: 1rem;
+    margin-bottom: 30px;
+  }
+
+  .programs-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .program-card {
+    max-width: 100%;
+  }
+
+  .program-header h2 {
+    font-size: 3.5rem;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .modal-actions {
+    flex-direction: column;
+  }
 }
